@@ -1,0 +1,33 @@
+;8-bit addition 
+
+.model small 
+.stack 100h
+
+;.data means the data segment 
+
+.data  
+      n1 db 56h
+      n2 db 98h
+      sum dw ?
+      
+
+
+
+.code 
+begin:
+mov ax,@data
+mov ds,ax
+
+
+mov ah,00
+mov al,n1   ; al =56h
+add al,n2   ; al = 56+98 = ee cy=0
+jnc nocarry
+inc ah
+
+nocarry:mov sum,ax 
+
+
+mov ah,4ch  ;service number 
+int 21h     ; exit to DOS
+end begin 
