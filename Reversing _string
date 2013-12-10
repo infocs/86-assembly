@@ -1,0 +1,40 @@
+.model small 
+.stack 100h
+.data                                 
+
+         text db 'Hello'    
+         text1 db 11 dup(?),'$'
+         count dw 11 ?
+      
+
+
+
+
+.code
+begin:
+         mov ax,@data
+         mov ds,ax
+                   
+                   
+         mov cx,count 
+         mov di,cx
+         dec di
+         mov si,0
+         
+again:   mov al,text[di]
+         mov text1[si],al
+         inc si
+         dec di
+         loop again
+         
+         
+         ;printing the reversed string
+         mov dx,offset text1
+         mov ah,09h
+         int 21h
+         
+         
+         mov ah,4ch
+         int 21h
+         
+end begin 
