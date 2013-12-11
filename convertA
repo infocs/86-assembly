@@ -1,0 +1,65 @@
+.model small
+.stack 100h
+.data
+    n1 db 5,'$'
+.code
+       
+
+    
+print proc near
+   again:
+         mov al,n1[si]
+         mov dl,al
+         mov ah,02h
+         int 21h
+         inc si
+         loop again
+         ret
+print endp
+
+addition proc near
+    again1:
+           mov al,n1[si]
+           sub al,32
+           mov dl,al
+           mov ah,02h
+           int 21h
+           inc si
+           loop again1
+           ret
+addition endp
+
+
+scan proc near
+   again2:
+         mov al,n1[si]
+         mov dl,al
+         mov ah,01h
+         int 21h
+         mov n1[si],al
+         inc si
+         loop again2
+         ret
+scan endp
+         
+;begin
+begin:
+      mov cx,5
+      mov si,0
+      
+      mov ax,@data
+      mov ds,ax
+      
+      call scan
+      mov cx,5
+      mov si,0
+      
+      call addition
+      
+      
+      mov ah,4ch
+      int 21h
+      
+      
+
+end begin
